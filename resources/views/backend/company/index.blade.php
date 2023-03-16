@@ -68,9 +68,6 @@
                             class=" btn {{ $company->status == 'publish' ? 'btn btn-warning' : 'btn btn-success' }}">{{ $company->status == 'publish' ? 'Draft' : 'Publish' }}</a>
                           <a href="{{ route('backend.company.trash', $company->id) }}"
                             class=" btn btn-sm btn-warning">Trash</a>
-
-
-                          </form>
                         </td>
                       </tr>
                     @endforeach

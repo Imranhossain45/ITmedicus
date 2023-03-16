@@ -122,9 +122,6 @@
                             class=" btn {{ $employee->status == 'publish' ? 'btn btn-warning' : 'btn btn-success' }}">{{ $employee->status == 'publish' ? 'Draft' : 'Publish' }}</a>
                           <a href="{{ route('backend.employee.trash', $employee->id) }}"
                             class=" btn btn-sm btn-warning">Trash</a>
-
-
-                          </form>
                         </td>
                       </tr>
                     @endforeach
@@ -166,14 +163,10 @@
                         <td>{{ $employee->phone }}</td>
                         <td>{{ $employee->company->name }}</td>
                         <td>
-
                           <a href="{{ route('backend.employee.reStore', $employee->id) }}"
                             class=" btn btn-sm btn-success">Restore</a>
                           <a href="{{ route('backend.employee.delete', $employee->id) }}" class=" btn btn-sm btn-danger"
                             onclick="return confirm('Are you Sure to Delete?')"> Delete </a>
-
-
-                          </form>
                         </td>
                       </tr>
                     @endforeach
