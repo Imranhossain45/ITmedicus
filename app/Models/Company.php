@@ -15,4 +15,8 @@ class Company extends Model
      * @var array<int, string>
      */
     protected $guarded = ['id'];
+
+    public function employee(){
+        return $this->hasMany(Employee::class);
+    }
 }

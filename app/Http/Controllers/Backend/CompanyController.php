@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 class CompanyController extends Controller
 {
@@ -15,7 +16,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $activeCompany = Company::where('status', 'publish')->paginate(10);
+        $draftCompany = Company::where('status', 'draft')->get();
+        $trashCompany = Company::onlyTrashed()->orderBy('id', 'desc')->get();
+        return view('backend.company.index', compact('activeCompany', 'draftCompany', 'trashCompany'));
     }
 
     /**
@@ -25,7 +29,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.company.create');
     }
 
     /**
@@ -36,7 +40,25 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $logo = $request->file('logo');
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'website' => 'required',
+            'logo' => 'required|mimes:png,jpg,jpeg|max:2000',
+        ]);
+        if ($logo) {
+            $logoName = uniqid() . '.' . $logo->getClientOriginalExtension();
+            Image::make($logo)->save(public_path('storage/company/' . $logoName));
+        }
+        Company::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'website' => $request->website,
+            'logo' => $logoName,
+
+        ]);
+        return back()->with('success', 'Company Added Successful!');
     }
 
     /**
@@ -58,7 +80,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view('backend.company.edit',compact('company'));
     }
 
     /**
@@ -70,7 +92,30 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $logo = $request->file('logo');
+        $request->validate([
+            'name' => 'required|unique:companies,name',
+            'email' => 'required',
+            'website' => 'required',
+            'logo' => 'required|mimes:png,jpg,jpeg|max:2000',
+        ]);
+        if ($logo) {
+            $path = public_path('storage/company/' . $company->logo);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
+            $logoName = uniqid() . '.' . $logo->getClientOriginalExtension();
+            Image::make($logo)->save(public_path('storage/company/' . $logoName));
+        }
+        $company->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'website' => $request->website,
+            'logo' => $logoName,
+
+        ]);
+        return redirect(route('backend.company.index'))->with('success', 'Company info Edited!');
     }
 
     /**
@@ -81,6 +126,32 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->status == 'draft';
+        $company->save();
+        $company->delete();
+        return back()->with('success', 'Company info Trashed!');
+    }
+    public function status(Company $company)
+    {
+        if ($company->status == 'publish') {
+            $company->status = 'draft';
+            $company->save();
+        } else {
+            $company->status = 'publish';
+            $company->save();
+        }
+        return back()->with('success', $company->status == 'publish' ? 'Company info Published' : 'Company info Drafted');
+    }
+    public function reStore($id)
+    {
+        $company = Company::onlyTrashed()->find($id);
+        $company->restore();
+        return back()->with('success', 'Company info Restored');
+    }
+    public function permDelete($id)
+    {
+        $company = Company::onlyTrashed()->find($id);
+        $company->forceDelete();
+        return back()->with('success', 'Company Item Deleted');
     }
 }

@@ -34,7 +34,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon">
-          <img class="" src="{{ asset('frontend/assets/images/klassy-logo.png') }}" width="100px" height="50px">
+           <img class="" src="{{ asset('backend/assets/img/itmedicus.png') }}" width="100px" height="60px" style="border-radius: 50%">
         </div>
       </a>
 
@@ -63,7 +63,7 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompany"
             aria-expanded="true" aria-controls="collapseCompany">
-            <i class="fas fa-user"></i>
+            <i class="fa-solid fa-building"></i>
             <span>Company</span>
           </a>
           <div id="collapseCompany" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -75,6 +75,22 @@
           </div>
         </li>
         <!-- Company end -->
+        <!-- Employee Start -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee"
+            aria-expanded="true" aria-controls="collapseEmployee">
+            <i class="fa-solid fa-person"></i>
+            <span>Employee</span>
+          </a>
+          <div id="collapseEmployee" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+              <a class="collapse-item" href="{{ route('backend.employee.create') }}">Add Employee</a>
+              <a class="collapse-item" href="{{ route('backend.employee.index') }}">All Employee</a>
+            </div>
+          </div>
+        </li>
+        <!-- Employee end -->
         @endauth
 
 
