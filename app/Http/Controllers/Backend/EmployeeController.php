@@ -17,7 +17,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $activeEmployee = Employee::where('status', 'publish')->paginate(5);
+        $activeEmployee = Employee::where('status', 'publish')->get();
         $draftEmployee = Employee::where('status', 'draft')->get();
         $trashEmployee = Employee::onlyTrashed()->orderBy('id', 'desc')->get();
         return view('backend.employee.index', compact('activeEmployee', 'draftEmployee', 'trashEmployee'));

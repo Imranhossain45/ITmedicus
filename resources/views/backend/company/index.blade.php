@@ -39,7 +39,7 @@
                 <h4 class=" text-center">Active Companies</h4>
               </div>
               <div class="card-body">
-                <table class="table">
+                <table class="table" id="table3">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -88,7 +88,7 @@
                 <h4 class="text-center">Draft companys</h4>
               </div>
               <div class="card-body">
-                <table class="table">
+                <table class="table" id="table2">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -135,7 +135,7 @@
                 <h4 class="text-center">Trashed company</h4>
               </div>
               <div class="card-body">
-                <table class=" table">
+                <table class=" table" id="table3">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -181,4 +181,19 @@
       </div>
     </div>
   </div>
+@endsection
+@section('script')
+  <script>
+    $(document).ready(function() {
+      $('#table1').dataTable({
+
+      });
+      $('#table2').dataTable({
+
+      });
+      $('#table3').dataTable({
+
+      });
+    });
+  </script>
 @endsection

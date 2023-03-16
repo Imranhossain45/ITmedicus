@@ -16,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $activeCompany = Company::where('status', 'publish')->paginate(10);
+        $activeCompany = Company::where('status', 'publish')->get();
         $draftCompany = Company::where('status', 'draft')->get();
         $trashCompany = Company::onlyTrashed()->orderBy('id', 'desc')->get();
         return view('backend.company.index', compact('activeCompany', 'draftCompany', 'trashCompany'));

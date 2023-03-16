@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('title', 'All employees')
 @section('content')
-<div class="container-fluid page__heading-container">
+  <div class="container-fluid page__heading-container">
     <div class="page__heading d-flex align-items-end">
       <div class="flex">
         <nav aria-label="breadcrumb">
@@ -36,10 +36,10 @@
           <div class="tab-pane active" id="active">
             <div class="card">
               <div class="card-header">
-                <h4 class=" text-center">Active employees</h4>
+                <h4 class=" text-center">Active Employees</h4>
               </div>
               <div class="card-body">
-                <table class=" table">
+                <table class=" table" id="table1">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -57,7 +57,7 @@
                       <tr>
                         <td>{{ $employee->id }}</td>
                         <td>
-                           <img src="{{ asset('storage/employee/' . $employee->photo) }}" width="60" alt="image">
+                          <img src="{{ asset('storage/employee/' . $employee->photo) }}" width="60" alt="image">
                         </td>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
@@ -65,7 +65,8 @@
                         <td>{{ $employee->company->name }}</td>
                         <td>
 
-                          <a href="{{ route('backend.employee.edit', $employee->id) }}" class=" btn btn-sm btn-info">Edit</a>
+                          <a href="{{ route('backend.employee.edit', $employee->id) }}"
+                            class=" btn btn-sm btn-info">Edit</a>
                           <a href="{{ route('backend.employee.status', $employee->id) }}"
                             class=" btn {{ $employee->status == 'publish' ? 'btn btn-warning' : 'btn btn-success' }}">{{ $employee->status == 'publish' ? 'Draft' : 'Publish' }}</a>
                           <a href="{{ route('backend.employee.trash', $employee->id) }}"
@@ -86,10 +87,10 @@
           <div class="tab-pane" id="draft">
             <div class="card">
               <div class="card-header">
-                <h4 class=" text-center">Draft employees</h4>
+                <h4 class=" text-center">Draft Employees</h4>
               </div>
               <div class="card-body">
-                <table class=" table">
+                <table class="table" id="table2">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -107,7 +108,7 @@
                       <tr>
                         <td>{{ $employee->id }}</td>
                         <td>
-                           <img src="{{ asset('storage/employee/' . $employee->photo) }}" width="60" alt="image">
+                          <img src="{{ asset('storage/employee/' . $employee->photo) }}" width="60" alt="image">
                         </td>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
@@ -115,7 +116,8 @@
                         <td>{{ $employee->company->name }}</td>
                         <td>
 
-                          <a href="{{ route('backend.employee.edit', $employee->id) }}" class=" btn btn-sm btn-info">Edit</a>
+                          <a href="{{ route('backend.employee.edit', $employee->id) }}"
+                            class=" btn btn-sm btn-info">Edit</a>
                           <a href="{{ route('backend.employee.status', $employee->id) }}"
                             class=" btn {{ $employee->status == 'publish' ? 'btn btn-warning' : 'btn btn-success' }}">{{ $employee->status == 'publish' ? 'Draft' : 'Publish' }}</a>
                           <a href="{{ route('backend.employee.trash', $employee->id) }}"
@@ -139,7 +141,7 @@
                 <h4 class=" text-center">Trashed employee</h4>
               </div>
               <div class="card-body">
-                <table class=" table">
+                <table class=" table" id="table3">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -157,7 +159,7 @@
                       <tr>
                         <td>{{ $employee->id }}</td>
                         <td>
-                           <img src="{{ asset('storage/employee/' . $employee->photo) }}" width="60" alt="image">
+                          <img src="{{ asset('storage/employee/' . $employee->photo) }}" width="60" alt="image">
                         </td>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
@@ -167,8 +169,8 @@
 
                           <a href="{{ route('backend.employee.reStore', $employee->id) }}"
                             class=" btn btn-sm btn-success">Restore</a>
-                          <a href="{{ route('backend.employee.delete', $employee->id) }}"
-                            class=" btn btn-sm btn-danger" onclick="return confirm('Are you Sure to Delete?')"> Delete </a>
+                          <a href="{{ route('backend.employee.delete', $employee->id) }}" class=" btn btn-sm btn-danger"
+                            onclick="return confirm('Are you Sure to Delete?')"> Delete </a>
 
 
                           </form>
@@ -187,4 +189,20 @@
       </div>
     </div>
   </div>
+
+@endsection
+@section('script')
+  <script>
+    $(document).ready(function() {
+      $('#table1').dataTable({
+
+      });
+      $('#table2').dataTable({
+
+      });
+      $('#table3').dataTable({
+
+      });
+    });
+  </script>
 @endsection

@@ -20,6 +20,7 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('backend/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
 </head>
 
@@ -232,6 +233,7 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('backend/assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="{{ asset('backend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
   <!-- Core plugin JavaScript-->
@@ -246,6 +248,9 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('backend/assets/js/demo/chart-pie-demo.js') }}"></script>
+  
+
+  @yield('script')
 
 </body>
 
