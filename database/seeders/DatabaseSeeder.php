@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
     {
          \App\Models\User::factory(2)->create();
 
-        /* User::factory()->create([
+        User::factory()->create([
             'name' => 'Md Imran Hossain',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
-         ]); */
+         ]);
 
         $this->call([
             CompanySeeder::class,
