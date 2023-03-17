@@ -18,7 +18,7 @@ use App\Http\Controllers\Backend\EmployeeController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
 Auth::routes(['verify' => true]);
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(
             Route::get('/destroy/{company}', 'destroy')->name('trash');
             Route::get('/status/{company}', 'status')->name('status');
             Route::get('/reStore/{id}', 'reStore')->name('reStore');
-            Route::get('/permDelete/{id}', 'permDelete')->name('delete');
+            Route::delete('/permDelete/{company}', 'permDelete')->name('delete');
         });
         Route::controller(EmployeeController::class)->prefix('employee')->name('backend.employee.')->group(function () {
             Route::get('/', 'index')->name('index');
@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(
             Route::get('/destroy/{employee}', 'destroy')->name('trash');
             Route::get('/status/{employee}', 'status')->name('status');
             Route::get('/reStore/{id}', 'reStore')->name('reStore');
-            Route::get('/permDelete/{id}', 'permDelete')->name('delete');
+            Route::delete('/permDelete/{employee}', 'permDelete')->name('delete');
         });
 
 

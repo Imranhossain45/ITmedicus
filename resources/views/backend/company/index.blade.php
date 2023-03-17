@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('title', 'All Companies')
 @section('content')
-<div class="container-fluid page__heading-container">
+  <div class="container-fluid page__heading-container">
     <div class="page__heading d-flex align-items-end">
       <div class="flex">
         <nav aria-label="breadcrumb">
@@ -56,14 +56,15 @@
                       <tr>
                         <td>{{ $company->id }}</td>
                         <td>
-                           <img src="{{ asset('storage/company/' . $company->logo) }}" width="60" alt="image">
+                          <img src="{{ asset('storage/company/' . $company->logo) }}" width="60" alt="image">
                         </td>
                         <td>{{ $company->name }}</td>
                         <td>{{ $company->email }}</td>
-                        <td>{{ $company->website }}</td>
+                        <td>{{ Str::limit($company->website, 30, '...') }}</td>
                         <td>
 
-                          <a href="{{ route('backend.company.edit', $company->id) }}" class=" btn btn-sm btn-info">Edit</a>
+                          <a href="{{ route('backend.company.edit', $company->id) }}"
+                            class=" btn btn-sm btn-info">Edit</a>
                           <a href="{{ route('backend.company.status', $company->id) }}"
                             class=" btn {{ $company->status == 'publish' ? 'btn btn-warning' : 'btn btn-success' }}">{{ $company->status == 'publish' ? 'Draft' : 'Publish' }}</a>
                           <a href="{{ route('backend.company.trash', $company->id) }}"
@@ -76,7 +77,7 @@
 
                 </table>
               </div>
-              
+
             </div>
           </div>
           <div class="tab-pane" id="draft">
@@ -102,21 +103,19 @@
                       <tr>
                         <td>{{ $company->id }}</td>
                         <td>
-                           <img src="{{ asset('storage/company/' . $company->logo) }}" width="60" alt="image">
+                          <img src="{{ asset('storage/company/' . $company->logo) }}" width="60" alt="image">
                         </td>
                         <td>{{ $company->name }}</td>
                         <td>{{ $company->email }}</td>
-                        <td>{{ $company->website }}</td>
+                        <td>{{ Str::limit($company->website, 30, '...') }}</td>
                         <td>
 
-                          <a href="{{ route('backend.company.edit', $company->id) }}" class=" btn btn-sm btn-info">Edit</a>
+                          <a href="{{ route('backend.company.edit', $company->id) }}"
+                            class=" btn btn-sm btn-info">Edit</a>
                           <a href="{{ route('backend.company.status', $company->id) }}"
                             class=" btn {{ $company->status == 'publish' ? 'btn btn-warning' : 'btn btn-success' }}">{{ $company->status == 'publish' ? 'Draft' : 'Publish' }}</a>
                           <a href="{{ route('backend.company.trash', $company->id) }}"
                             class=" btn btn-sm btn-warning">Trash</a>
-
-
-                          </form>
                         </td>
                       </tr>
                     @endforeach
@@ -149,20 +148,23 @@
                       <tr>
                         <td>{{ $company->id }}</td>
                         <td>
-                           <img src="{{ asset('storage/company/' . $company->logo) }}" width="60" alt="image">
+                          <img src="{{ asset('storage/company/' . $company->logo) }}" width="60" alt="image">
                         </td>
                         <td>{{ $company->name }}</td>
                         <td>{{ $company->email }}</td>
-                        <td>{{ $company->website }}</td>
+                        <td>{{ Str::limit($company->website, 30, '...') }}</td>
                         <td>
 
                           <a href="{{ route('backend.company.reStore', $company->id) }}"
                             class=" btn btn-sm btn-success">Restore</a>
-                          <a href="{{ route('backend.company.delete', $company->id) }}"
-                            class=" btn btn-sm btn-danger" onclick="return confirm('Are you Sure to Delete?')"> Delete </a>
-
-
+                          <form action="{{ route('backend.company.delete', $company->id) }}" class="d-inline"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"
+                              onclick="return confirm('Are you Sure to Delete?')">Delete</button>
                           </form>
+
                         </td>
                       </tr>
                     @endforeach

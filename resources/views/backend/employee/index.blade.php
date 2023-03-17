@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row justify-content-center">
       <div class=" col-lg-12">
         <!-- Nav tabs -->
@@ -165,8 +165,14 @@
                         <td>
                           <a href="{{ route('backend.employee.reStore', $employee->id) }}"
                             class=" btn btn-sm btn-success">Restore</a>
-                          <a href="{{ route('backend.employee.delete', $employee->id) }}" class=" btn btn-sm btn-danger"
-                            onclick="return confirm('Are you Sure to Delete?')"> Delete </a>
+
+                            <form action="{{ route('backend.employee.delete', $employee->id) }}" class="d-inline"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"
+                              onclick="return confirm('Are you Sure to Delete?')">Delete</button>
+                          </form>
                         </td>
                       </tr>
                     @endforeach
